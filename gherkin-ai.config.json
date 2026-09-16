@@ -1,0 +1,28 @@
+{
+  "projectName": "laravel-inertia-vue-auth",
+  "architecture": "monolith",
+  "stack": {
+    "language": "php",
+    "framework": "laravel",
+    "orm": "pdo",
+    "database": "mysql",
+    "validation": "native-php-filter",
+    "auth": "jwt-bcrypt",
+    "messaging": "none",
+    "testing": "phpunit"
+  },
+  "frontendStack": {
+    "framework": "vue",
+    "language": "javascript",
+    "bundler": "vite",
+    "unitTesting": "vitest",
+    "e2eTesting": "cypress"
+  },
+  "rules": {
+    "bcryptCostFactor": 12,
+    "jwtTtlSeconds": 3600,
+    "strictLayerBoundaries": true,
+    "coverageTarget": 85
+  },
+  "outputDir": "./generated-specs"
+}

@@ -1,0 +1,3 @@
+{
+  "app": "npx ts-node bin/laravel-inertia-vue-auth.ts"
+}

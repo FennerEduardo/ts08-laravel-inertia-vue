@@ -1,0 +1,87 @@
+{
+  "version": "1.0",
+  "generatedAt": "2026-09-16T14:19:05.081Z",
+  "createdBy": "gherkin-ai-cli",
+  "artifacts": [
+    {
+      "filePath": "ADR-001-architecture-decisions.md",
+      "type": "other",
+      "checksum": "63d047ef2b8a8c399225ca0e7427cd4cead932ed71f42c099791c512eca71db7"
+    },
+    {
+      "filePath": "openapi.json",
+      "type": "openapi",
+      "checksum": "a1d14960c2f1f0310dfae92b5081e777d87d0b9addf2e9a31f6b421bf9962337"
+    },
+    {
+      "filePath": "asyncapi.json",
+      "type": "contract",
+      "checksum": "f2d60001c6aeecd77c90bef60b49ad19c638f5dc6da6791846fca90a714a5d28"
+    },
+    {
+      "filePath": "checkoutautenticadoconlaravelsanctumeinertiavue.contract.php",
+      "type": "contract",
+      "checksum": "2af53113a3f3457836588ec71c455addb39b50d21104a63433fd7a18f53ffbee"
+    },
+    {
+      "filePath": "fixtures.ts",
+      "type": "fixture",
+      "checksum": "34c4074ddcbe12e3eb74a7b937281d3d8210a806b8a935625fdc7dd263a37d21"
+    },
+    {
+      "filePath": "seed.sql",
+      "type": "fixture",
+      "checksum": "1e8cec50762c894de1655bb55b1ebf9d2eddb7943fd1599d5410400b8c9a2c3a"
+    },
+    {
+      "filePath": "CheckoutAutenticadoconLaravelSanctumeInertiaVueContext.php",
+      "type": "test",
+      "checksum": "dc3ba483418893baa5f3682fff5dbd5a65faae262ac9470e6262a7e775e90849"
+    },
+    {
+      "filePath": "frontend/stores/checkout-autenticado-con-laravel-sanctum-e-inertia-vue.store.ts",
+      "type": "test",
+      "checksum": "16845f9eec290ec3c0f397a7652562654d46359da7e5665db9b0a4fa9747012a"
+    },
+    {
+      "filePath": "docker-compose.yml",
+      "type": "config",
+      "checksum": "15a0391f21f0ce986379b198e44194def74a4f9ffa125b65573a21d909be8e46"
+    },
+    {
+      "filePath": ".env.example",
+      "type": "config",
+      "checksum": "2ebc1b216192280e8e4a8c7b230dc5f24eaa9b2a94cb8686021c89903f83b5e1"
+    },
+    {
+      "filePath": "infrastructure/lib/laravel-inertia-vue-auth-stack.ts",
+      "type": "config",
+      "checksum": "8b132b61fa4c0095867a0bc484d2a1a2d0759c45ab65a03cb7051312ce3c8f06"
+    },
+    {
+      "filePath": "infrastructure/cdk.json",
+      "type": "config",
+      "checksum": "7a56ac44d31aab508fb689248d6645397f4ed8b2eb43d9e268e4a0a57e4cb5ba"
+    },
+    {
+      "filePath": "infrastructure/package.json",
+      "type": "config",
+      "checksum": "92b05ef968193f6de41ecc1ad965c53e662b99f0e8813d10c2d7467573654e67"
+    },
+    {
+      "filePath": "prompts/domain-agent.md",
+      "type": "prompt",
+      "checksum": "4a52401ef3ee19b43f995f73ab306545fd6262968cfb2e39272434e0bf0a1df2"
+    },
+    {
+      "filePath": "prompts/backend-agent.md",
+      "type": "prompt",
+      "checksum": "0612476af026d25fa54279dcc72473b784ff2643d6b50cda0b06f6724a9d0c9c"
+    },
+    {
+      "filePath": "prompts/qa-agent.md",
+      "type": "prompt",
+      "checksum": "7134e6f9cad4f62288af02cdc445b57dfac4d40d47a28a2d37a3350c685659af"
+    }
+  ]
+}
