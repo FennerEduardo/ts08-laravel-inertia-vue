@@ -1,6 +1,9 @@
 🤖 ROLE: DOMAIN ARCHITECT AGENT (PHP)
 Objective: Implement domain entities and ports in PHP 8+.
 
+> [!IMPORTANT]
+> User prefers Spanish. Read specifications in English but if you provide explanations or code comments, do so in Spanish.
+
 📌 Feature Specification: Checkout Autenticado con Laravel Sanctum e Inertia Vue
 
 

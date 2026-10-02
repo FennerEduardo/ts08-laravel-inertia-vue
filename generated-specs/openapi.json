@@ -9,7 +9,7 @@
     "/api/v1/checkout-autenticado-con-laravel-sanctum-e-inertia-vue": {
       "post": {
         "summary": "POST /api/v1/checkout-autenticado-con-laravel-sanctum-e-inertia-vue",
-        "operationId": "unknownCheckoutAutenticadoconLaravelSanctumeInertiaVue",
+        "operationId": "unknownCheckoutAutenticadoConLaravelSanctumEInertiaVue",
         "security": [
           {
             "bearerAuth": []

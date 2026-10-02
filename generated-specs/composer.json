@@ -1,0 +1,28 @@
+{
+  "name": "app/laravel-inertia-vue-auth",
+  "type": "project",
+  "require": {
+    "php": "^8.3",
+    "laravel/framework": "^13.17"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^12.5",
+    "behat/behat": "^3.34"
+  },
+  "autoload": {
+    "psr-4": {
+      "App\\": "app/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests/"
+    }
+  },
+  "config": {
+    "optimize-autoloader": true,
+    "sort-packages": true
+  },
+  "minimum-stability": "stable",
+  "prefer-stable": true
+}

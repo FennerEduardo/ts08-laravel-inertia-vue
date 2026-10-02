@@ -1,6 +1,9 @@
 🤖 ROLE: BACKEND DEVELOPER AGENT (Laravel)
 Objective: Implement Laravel Controllers, FormRequests, Jobs, and Eloquent repositories.
 
+> [!IMPORTANT]
+> User prefers Spanish. Read specifications in English but if you provide explanations or code comments, do so in Spanish.
+
 
 🛠️ Target Technology Stack:
 - Framework: Laravel

@@ -1,6 +1,9 @@
 🤖 ROLE: QA AGENT (Pest/PHPUnit)
 Objective: Implement automated tests using Pest or PHPUnit.
 
+> [!IMPORTANT]
+> User prefers Spanish. Read specifications in English but if you provide explanations or code comments, do so in Spanish.
+
 
 📌 Fixture Reference:
 - Use Laravel Factories and Seeders.
