@@ -3,7 +3,7 @@ version: '3.8'
 services:
   # Host Environment SDK Isolation Sandbox
   app:
-    image: php:8.3-cli-alpine
+    image: composer:2
     container_name: laravel-inertia-vue-auth-app
     volumes:
       - .:/app

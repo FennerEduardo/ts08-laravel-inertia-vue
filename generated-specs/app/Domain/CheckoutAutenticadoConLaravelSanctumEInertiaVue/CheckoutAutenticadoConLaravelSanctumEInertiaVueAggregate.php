@@ -24,6 +24,15 @@ final class CheckoutAutenticadoConLaravelSanctumEInertiaVueAggregate
         }
     }
 
+    /** Rebuilds an aggregate from persisted state; no events are recorded. */
+    public static function restore(string $id, CheckoutAutenticadoConLaravelSanctumEInertiaVueState $state, int $version): self
+    {
+        $aggregate = new self($id);
+        $aggregate->state = $state;
+        $aggregate->version = $version;
+        return $aggregate;
+    }
+
     public function id(): string { return $this->id; }
     public function state(): CheckoutAutenticadoConLaravelSanctumEInertiaVueState { return $this->state; }
     public function version(): int { return $this->version; }
