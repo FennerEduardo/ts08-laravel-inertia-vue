@@ -9,8 +9,9 @@ services:
       - .:/app
     working_dir: /app
     environment:
-      - ENVIRONMENT=development
-      - DATABASE_URL=${DATABASE_URL:-mysql://dev_user:dev_password@mysql:5432/laravel-inertia-vue-auth_db}
+      - APP_ENV=local
+      - APP_DEBUG=true
+      - DATABASE_URL=${DATABASE_URL:-mysql://dev_user:dev_password@mysql:3306/laravel-inertia-vue-auth_db}
     ports:
       - "8000:8000"
     depends_on:

@@ -10,18 +10,19 @@ describe('CheckoutAutenticadoConLaravelSanctumEInertiaVue API client', () => {
     expect(COMMANDS).toEqual(['process_checkout_autenticado_con_laravel_sanctum_e_inertia_vue']);
   });
 
-  it('posts the command with tenant and idempotency headers', async () => {
-    const fetch = fakeFetch(201, { type: 'ProcessCheckoutAutenticadoConLaravelSanctumEInertiaVueCompleted', aggregateId: 'agg-1', version: 1 });
-    const client = createCheckoutAutenticadoConLaravelSanctumEInertiaVueClient({ baseUrl: 'https://api.test/', tenantId: 'acme', fetch });
+  it('posts the command with the bearer token and idempotency key', async () => {
+    const fetch = fakeFetch(202, { status: 'created', eventType: 'ProcessCheckoutAutenticadoConLaravelSanctumEInertiaVueCompleted', aggregateId: 'agg-1', version: 1 });
+    const client = createCheckoutAutenticadoConLaravelSanctumEInertiaVueClient({ baseUrl: 'https://api.test/', token: 'jwt-1', fetch });
 
     const result = await client.processCheckoutAutenticadoConLaravelSanctumEInertiaVue('agg-1', { amount: 100 }, { idempotencyKey: 'key-1' });
 
-    expect(result).toEqual({ type: 'ProcessCheckoutAutenticadoConLaravelSanctumEInertiaVueCompleted', aggregateId: 'agg-1', version: 1 });
+    expect(result).toEqual({ type: 'ProcessCheckoutAutenticadoConLaravelSanctumEInertiaVueCompleted', aggregateId: 'agg-1', version: 1, status: 'created' });
     const [url, init] = fetch.mock.calls[0];
     expect(url).toBe('https://api.test/api/v1/checkout-autenticado-con-laravel-sanctum-e-inertia-vue/agg-1/process_checkout_autenticado_con_laravel_sanctum_e_inertia_vue');
     expect(init?.method).toBe('POST');
-    expect((init?.headers as Record<string, string>)['X-Tenant-Id']).toBe('acme');
-    expect((init?.headers as Record<string, string>)['X-Idempotency-Key']).toBe('key-1');
+    expect((init?.headers as Record<string, string>).Authorization).toBe('Bearer jwt-1');
+    expect((init?.headers as Record<string, string>)['X-Tenant-Id']).toBeUndefined();
+    expect((init?.headers as Record<string, string>)['Idempotency-Key']).toBe('key-1');
     expect(JSON.parse(String(init?.body))).toEqual({ amount: 100 });
   });
 

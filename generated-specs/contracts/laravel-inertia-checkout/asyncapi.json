@@ -1,0 +1,10 @@
+{
+  "asyncapi": "2.6.0",
+  "info": {
+    "title": "Checkout Autenticado con Laravel Sanctum e Inertia Vue AsyncAPI Specification",
+    "version": "1.0.0",
+    "description": "Auto-generated AsyncAPI events for Checkout Autenticado con Laravel Sanctum e Inertia Vue from Gherkin feature spec."
+  },
+  "defaultContentType": "application/json",
+  "channels": {}
+}

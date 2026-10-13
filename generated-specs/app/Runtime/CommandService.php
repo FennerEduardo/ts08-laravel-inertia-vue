@@ -18,9 +18,14 @@ use PDO;
  */
 final class CommandService
 {
-    private const AGGREGATE_TYPE = 'CheckoutAutenticadoConLaravelSanctumEInertiaVue';
+    /** Aggregate type used when a request does not name one. */
+    public const DEFAULT_AGGREGATE = 'CheckoutAutenticadoConLaravelSanctumEInertiaVue';
+
+    /** Every aggregate of the service: command name => aggregate method. */
     private const COMMANDS = [
-        'process_checkout_autenticado_con_laravel_sanctum_e_inertia_vue' => 'processCheckoutAutenticadoConLaravelSanctumEInertiaVue',
+        'CheckoutAutenticadoConLaravelSanctumEInertiaVue' => [
+            'process_checkout_autenticado_con_laravel_sanctum_e_inertia_vue' => 'processCheckoutAutenticadoConLaravelSanctumEInertiaVue',
+        ],
     ];
 
     private readonly string $s;
@@ -34,18 +39,22 @@ final class CommandService
      * @param array<string, mixed> $payload
      * @return array{status: string, aggregateId: string, eventType: ?string, version: ?int}
      */
-    public function handle(string $tenantId, string $aggregateId, string $command, array $payload = [], ?string $idempotencyKey = null, ?string $traceparent = null): array
+    public function handle(string $tenantId, string $aggregateId, string $command, array $payload = [], ?string $idempotencyKey = null, ?string $traceparent = null, ?string $aggregateType = null): array
     {
         if ($tenantId === '') {
             throw new DomainValidationException('tenantId is required');
         }
+        $aggregateType ??= self::DEFAULT_AGGREGATE;
+        if (!isset(self::COMMANDS[$aggregateType])) {
+            throw new DomainValidationException("Unknown aggregate type {$aggregateType}");
+        }
         $parent = Telemetry::contextFrom($traceparent);
-        $span = Telemetry::tracer()->spanBuilder("CheckoutAutenticadoConLaravelSanctumEInertiaVue.{$command}")->setParent($parent)->setSpanKind(SpanKind::KIND_INTERNAL)
+        $span = Telemetry::tracer()->spanBuilder("{$aggregateType}.{$command}")->setParent($parent)->setSpanKind(SpanKind::KIND_INTERNAL)
             ->setAttribute('tenant.id', $tenantId)->setAttribute('aggregate.id', $aggregateId)->startSpan();
         $pdo = Database::connect($this->databaseUrl);
         try {
             $pdo->beginTransaction();
-            $result = $this->execute($pdo, $tenantId, $aggregateId, $command, $payload, $idempotencyKey, Telemetry::traceparentOf($span, $parent));
+            $result = $this->execute($pdo, $aggregateType, $tenantId, $aggregateId, $command, $payload, $idempotencyKey, Telemetry::traceparentOf($span, $parent));
             $pdo->commit();
             return $result;
         } catch (\Throwable $e) {
@@ -64,7 +73,7 @@ final class CommandService
      * @param array<string, mixed> $payload
      * @return array{status: string, aggregateId: string, eventType: ?string, version: ?int}
      */
-    private function execute(PDO $pdo, string $tenantId, string $aggregateId, string $command, array $payload, ?string $key, ?string $traceparent): array
+    private function execute(PDO $pdo, string $aggregateType, string $tenantId, string $aggregateId, string $command, array $payload, ?string $key, ?string $traceparent): array
     {
         $s = $this->s;
         if ($key !== null) {
@@ -77,15 +86,20 @@ final class CommandService
             }
         }
         $row = Database::rows($pdo, "SELECT state, version FROM {$s}.ghk_aggregates WHERE tenant_id = ? AND aggregate_type = ? AND id = ? FOR UPDATE",
-            [$tenantId, self::AGGREGATE_TYPE, $aggregateId])[0] ?? null;
-        $aggregate = $row !== null
-            ? CheckoutAutenticadoConLaravelSanctumEInertiaVueAggregate::restore($aggregateId, CheckoutAutenticadoConLaravelSanctumEInertiaVueState::from((string) $row['state']), (int) $row['version'])
-            : new CheckoutAutenticadoConLaravelSanctumEInertiaVueAggregate($aggregateId);
-        $method = self::COMMANDS[$command] ?? throw new DomainValidationException("Unknown command {$command}");
-        $event = $aggregate->{$method}(new CheckoutAutenticadoConLaravelSanctumEInertiaVueCommand($aggregateId, $payload));
+            [$tenantId, $aggregateType, $aggregateId])[0] ?? null;
+        $aggregate = match ($aggregateType) {
+            'CheckoutAutenticadoConLaravelSanctumEInertiaVue' => $row !== null
+                ? CheckoutAutenticadoConLaravelSanctumEInertiaVueAggregate::restore($aggregateId, CheckoutAutenticadoConLaravelSanctumEInertiaVueState::from((string) $row['state']), (int) $row['version'])
+                : new CheckoutAutenticadoConLaravelSanctumEInertiaVueAggregate($aggregateId),
+        };
+        $method = self::COMMANDS[$aggregateType][$command] ?? throw new DomainValidationException("Unknown command {$command}");
+        $commandObject = match ($aggregateType) {
+            'CheckoutAutenticadoConLaravelSanctumEInertiaVue' => new CheckoutAutenticadoConLaravelSanctumEInertiaVueCommand($aggregateId, $payload),
+        };
+        $event = $aggregate->{$method}($commandObject);
         Database::exec($pdo, "INSERT INTO {$s}.ghk_aggregates (tenant_id, aggregate_type, id, state, version) VALUES (?, ?, ?, ?, ?) "
             . 'ON CONFLICT (tenant_id, aggregate_type, id) DO UPDATE SET state = EXCLUDED.state, version = EXCLUDED.version, updated_at = now()',
-            [$tenantId, self::AGGREGATE_TYPE, $aggregateId, $aggregate->state()->value, $aggregate->version()]);
+            [$tenantId, $aggregateType, $aggregateId, $aggregate->state()->value, $aggregate->version()]);
         Database::exec($pdo, "INSERT INTO {$s}.ghk_outbox (id, tenant_id, aggregate_id, event_type, payload, traceparent) VALUES (?, ?, ?, ?, ?, ?)",
             [self::uuid(), $tenantId, $aggregateId, $event->type->value, json_encode($event, JSON_THROW_ON_ERROR), $traceparent]);
         $result = ['status' => 'created', 'aggregateId' => $aggregateId, 'eventType' => $event->type->value, 'version' => $event->version];
@@ -97,11 +111,11 @@ final class CommandService
     }
 
     /** @return array{state: string, version: int}|null The aggregate as the tenant sees it (null for other tenants'). */
-    public function load(string $tenantId, string $aggregateId): ?array
+    public function load(string $tenantId, string $aggregateId, string $aggregateType = self::DEFAULT_AGGREGATE): ?array
     {
         $row = Database::rows(Database::connect($this->databaseUrl),
             "SELECT state, version FROM {$this->s}.ghk_aggregates WHERE tenant_id = ? AND aggregate_type = ? AND id = ?",
-            [$tenantId, self::AGGREGATE_TYPE, $aggregateId])[0] ?? null;
+            [$tenantId, $aggregateType, $aggregateId])[0] ?? null;
         return $row === null ? null : ['state' => (string) $row['state'], 'version' => (int) $row['version']];
     }
 

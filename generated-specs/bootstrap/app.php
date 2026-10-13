@@ -9,6 +9,8 @@ return Application::configure(basePath: dirname(__DIR__))
         api: __DIR__.'/../routes/api.php',
         health: '/up',
     )
+    // Binds the CommandPort to the runtime kernel (DATABASE_URL).
+    ->withProviders([App\Providers\RuntimeServiceProvider::class])
     ->withMiddleware(function (Middleware $middleware) {
         //
     })

@@ -1,9 +1,9 @@
 {
   "openapi": "3.0.3",
   "info": {
-    "title": "Checkout Autenticado con Laravel Sanctum e Inertia Vue API Specification",
+    "title": "laravel-inertia-vue-auth API",
     "version": "1.0.0",
-    "description": "Auto-generated OpenAPI specification for Checkout Autenticado con Laravel Sanctum e Inertia Vue from Gherkin feature spec."
+    "description": "Service API of laravel-inertia-vue-auth, merged from 1 feature contract(s) in contracts/."
   },
   "paths": {
     "/api/v1/checkout-autenticado-con-laravel-sanctum-e-inertia-vue": {
