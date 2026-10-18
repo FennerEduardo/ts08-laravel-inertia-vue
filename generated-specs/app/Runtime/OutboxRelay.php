@@ -6,33 +6,24 @@ namespace App\Runtime;
 
 use OpenTelemetry\API\Trace\SpanKind;
 use OpenTelemetry\API\Trace\StatusCode;
-use PhpAmqpLib\Channel\AMQPChannel;
-use PhpAmqpLib\Message\AMQPMessage;
-use PhpAmqpLib\Wire\AMQPTable;
 
 /**
  * Publishes pending outbox rows. Rows are claimed with FOR UPDATE SKIP LOCKED and a lease, so
- * concurrent relays never publish the same row; publisher confirms guarantee delivery to the broker
- * before a row is marked published. Use one relay (and channel) per process.
+ * concurrent relays never publish the same row; the publisher returns only once the broker has
+ * accepted the message, so a row is marked published only after delivery. Use one relay per process.
  */
 final class OutboxRelay
 {
     private readonly string $s;
-    private bool $nacked = false;
 
     public function __construct(
         private readonly string $databaseUrl,
-        private readonly AMQPChannel $channel,
-        private readonly string $exchange,
+        private readonly EventPublisher $publisher,
         string $schema = 'public',
         private readonly int $leaseSeconds = 30,
         private readonly int $maxAttempts = 5,
     ) {
         $this->s = Schema::name($schema);
-        $this->channel->confirm_select();
-        $this->channel->set_nack_handler(function (): void {
-            $this->nacked = true;
-        });
     }
 
     public function publishBatch(string $workerId, int $limit = 50): int
@@ -47,24 +38,13 @@ final class OutboxRelay
         $published = 0;
         foreach ($rows as $row) {
             $parent = Telemetry::contextFrom($row['traceparent']);
-            $span = Telemetry::tracer()->spanBuilder("{$this->exchange} publish")->setParent($parent)->setSpanKind(SpanKind::KIND_PRODUCER)
-                ->setAttribute('messaging.system', 'rabbitmq')->setAttribute('messaging.destination.name', $this->exchange)
+            $destination = $this->publisher->destination();
+            $span = Telemetry::tracer()->spanBuilder("{$destination} publish")->setParent($parent)->setSpanKind(SpanKind::KIND_PRODUCER)
+                ->setAttribute('messaging.system', $this->publisher->system())->setAttribute('messaging.destination.name', $destination)
                 ->setAttribute('messaging.message.id', $row['id'])->setAttribute('tenant.id', $row['tenant_id'])->startSpan();
             try {
-                $headers = ['tenant_id' => $row['tenant_id']];
-                $traceparent = Telemetry::traceparentOf($span, $parent);
-                if ($traceparent !== null) {
-                    $headers['traceparent'] = $traceparent;
-                }
-                $this->nacked = false;
-                $this->channel->basic_publish(new AMQPMessage((string) $row['payload'], [
-                    'message_id' => $row['id'], 'delivery_mode' => AMQPMessage::DELIVERY_MODE_PERSISTENT,
-                    'content_type' => 'application/json', 'type' => $row['event_type'], 'application_headers' => new AMQPTable($headers),
-                ]), $this->exchange, (string) $row['event_type']);
-                $this->channel->wait_for_pending_acks(10);
-                if ($this->nacked) {
-                    throw new \RuntimeException("Broker rejected {$row['id']}");
-                }
+                $this->publisher->publish(new BrokerMessage((string) $row['id'], $row['event_type'], $row['tenant_id'],
+                    Telemetry::traceparentOf($span, $parent), (string) $row['payload']));
                 Database::exec($pdo, "UPDATE {$s}.ghk_outbox SET published_at = now(), claimed_until = NULL WHERE id = ? AND claimed_by = ?", [$row['id'], $workerId]);
                 $published++;
             } catch (\Throwable $e) {

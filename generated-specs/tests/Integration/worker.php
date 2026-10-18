@@ -5,8 +5,8 @@ declare(strict_types=1);
 // Worker process for the concurrency tests (IT2, IT3): php worker.php <handle|relay> '<json args>'
 require __DIR__ . '/../../vendor/autoload.php';
 
+use App\Runtime\Brokers;
 use App\Runtime\CommandService;
-use App\Runtime\Messaging;
 use App\Runtime\OutboxRelay;
 
 [$mode, $json] = [$argv[1], $argv[2]];
@@ -19,11 +19,13 @@ if ($mode === 'handle') {
     exit(0);
 }
 
-$connection = Messaging::connect((string) getenv('AMQP_URL'));
-$relay = new OutboxRelay($databaseUrl, $connection->channel(), $args['exchange'], $args['schema']);
+$broker = Brokers::connect();
+$publisher = $broker->publisher($args['exchange']);
+$relay = new OutboxRelay($databaseUrl, $publisher, $args['schema']);
 $total = 0;
 while (($n = $relay->publishBatch($args['worker'], 3)) > 0) {
     $total += $n;
 }
-$connection->close();
+$publisher->close();
+$broker->close();
 echo json_encode(['published' => $total]);

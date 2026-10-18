@@ -6,6 +6,7 @@
     "laravel/framework": "^13.17",
     "ext-pdo_pgsql": "*",
     "ext-sockets": "*",
+    "ext-curl": "*",
     "php-amqplib/php-amqplib": "^3.7",
     "open-telemetry/api": "^1.1",
     "open-telemetry/sdk": "^1.2"

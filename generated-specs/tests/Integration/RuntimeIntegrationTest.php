@@ -5,6 +5,9 @@ declare(strict_types=1);
 namespace Tests\Integration;
 
 use App\Domain\CheckoutAutenticadoConLaravelSanctumEInertiaVue\DomainValidationException;
+use App\Runtime\Broker;
+use App\Runtime\BrokerMessage;
+use App\Runtime\Brokers;
 use App\Runtime\CommandService;
 use App\Runtime\Database;
 use App\Runtime\InboxConsumer;
@@ -17,12 +20,10 @@ use OpenTelemetry\SDK\Sdk;
 use OpenTelemetry\SDK\Trace\SpanExporter\InMemoryExporter;
 use OpenTelemetry\SDK\Trace\SpanProcessor\SimpleSpanProcessor;
 use OpenTelemetry\SDK\Trace\TracerProvider;
-use PhpAmqpLib\Message\AMQPMessage;
-use PhpAmqpLib\Wire\AMQPTable;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 
-/** Runtime integration tests (docs/RUNTIME-KERNEL.md, IT1-IT7). Requires DATABASE_URL and AMQP_URL. */
+/** Runtime integration tests (docs/RUNTIME-KERNEL.md, IT1-IT7). Requires DATABASE_URL and the broker variables. */
 #[Group('integration')]
 final class RuntimeIntegrationTest extends TestCase
 {
@@ -30,9 +31,9 @@ final class RuntimeIntegrationTest extends TestCase
     private const EVENT = 'ProcessCheckoutAutenticadoConLaravelSanctumEInertiaVueCompleted';
     private static InMemoryExporter $exporter;
     private string $databaseUrl;
-    private string $amqpUrl;
     private string $schema;
     private Messaging $topology;
+    private ?Broker $broker = null;
 
     public static function setUpBeforeClass(): void
     {
@@ -43,9 +44,8 @@ final class RuntimeIntegrationTest extends TestCase
     protected function setUp(): void
     {
         $this->databaseUrl = (string) getenv('DATABASE_URL');
-        $this->amqpUrl = (string) getenv('AMQP_URL');
-        if ($this->databaseUrl === '' || $this->amqpUrl === '') {
-            self::fail('Integration tests need DATABASE_URL and AMQP_URL (see docs/RUNTIME-KERNEL.md).');
+        if ($this->databaseUrl === '' || !Brokers::configured()) {
+            self::fail('Integration tests need DATABASE_URL and the broker variables (see docs/RUNTIME-KERNEL.md).');
         }
         $uid = bin2hex(random_bytes(6));
         $this->schema = "it_{$uid}";
@@ -56,7 +56,43 @@ final class RuntimeIntegrationTest extends TestCase
 
     protected function tearDown(): void
     {
+        $this->broker?->close();
         Database::connect($this->databaseUrl)->exec("DROP SCHEMA IF EXISTS {$this->schema} CASCADE");
+    }
+
+    /** The broker with this test's topology declared. */
+    private function broker(): Broker
+    {
+        if ($this->broker === null) {
+            $this->broker = Brokers::connect();
+            $this->broker->declare($this->topology);
+        }
+        return $this->broker;
+    }
+
+    /**
+     * Receives and acknowledges messages until $expected arrived and the source stays quiet for 0.5 s (10 s at most).
+     *
+     * @return list<BrokerMessage>
+     */
+    private function receive(string $source, int $expected): array
+    {
+        $subscription = $this->broker()->subscribe($source, $this->topology);
+        $out = [];
+        $deadline = microtime(true) + 10;
+        $quietSince = microtime(true);
+        while (microtime(true) < $deadline && (count($out) < $expected || microtime(true) - $quietSince < 0.5)) {
+            $delivery = $subscription->poll();
+            if ($delivery === null) {
+                usleep(50_000);
+                continue;
+            }
+            $out[] = $delivery->message;
+            $delivery->ack();
+            $quietSince = microtime(true);
+        }
+        $subscription->close();
+        return $out;
     }
 
     private function countRows(string $table, string $where = 'true', array $params = []): int
@@ -84,26 +120,6 @@ final class RuntimeIntegrationTest extends TestCase
         return $outputs;
     }
 
-    private static function waitFor(callable $check): void
-    {
-        $deadline = microtime(true) + 10;
-        while (!$check()) {
-            if (microtime(true) > $deadline) {
-                self::fail('Timed out waiting for condition');
-            }
-            usleep(50_000);
-        }
-    }
-
-    /** @return list<AMQPMessage> */
-    private static function drainQueue($channel, string $queue): array
-    {
-        $messages = [];
-        while (($message = $channel->basic_get($queue, true)) !== null) {
-            $messages[] = $message;
-        }
-        return $messages;
-    }
 
     public function testIT1AtomicWriteAndRollback(): void
     {
@@ -141,19 +157,16 @@ final class RuntimeIntegrationTest extends TestCase
         for ($i = 0; $i < 20; $i++) {
             $service->handle('t1', "agg-{$i}", self::COMMAND);
         }
-        $connection = Messaging::connect($this->amqpUrl);
-        $channel = $connection->channel();
-        $this->topology->declare($channel);
+        $this->broker();
         $outputs = $this->runWorkers('relay', [
             ['schema' => $this->schema, 'exchange' => $this->topology->exchange, 'worker' => 'relay-a'],
             ['schema' => $this->schema, 'exchange' => $this->topology->exchange, 'worker' => 'relay-b'],
         ]);
         self::assertSame(20, array_sum(array_column($outputs, 'published')));
         self::assertSame(0, $this->countRows('ghk_outbox', 'published_at IS NULL'));
-        self::waitFor(fn () => Messaging::messageCount($channel, $this->topology->queue) === 20);
-        $ids = array_map(fn (AMQPMessage $m) => $m->get('message_id'), self::drainQueue($channel, $this->topology->queue));
-        self::assertCount(20, array_unique($ids));
-        $connection->close();
+        $received = $this->receive($this->topology->queue, 20);
+        self::assertCount(20, $received);
+        self::assertCount(20, array_unique(array_map(fn (BrokerMessage $m) => $m->messageId, $received)));
     }
 
     public function testIT4TenantIsolation(): void
@@ -193,25 +206,24 @@ final class RuntimeIntegrationTest extends TestCase
 
     public function testIT6InboxDeduplicatesAndDeadLetters(): void
     {
-        $connection = Messaging::connect($this->amqpUrl);
-        $channel = $connection->channel();
-        $this->topology->declare($channel);
+        $broker = $this->broker();
+        $publisher = $broker->publisher($this->topology->exchange);
+        foreach ([['m-1', '{"ok": true}'], ['m-1', '{"ok": true}'], ['m-poison', '{"poison": true}']] as [$id, $body]) {
+            $publisher->publish(new BrokerMessage($id, 'Test', 't1', null, $body));
+        }
+        $publisher->close();
         $handled = [];
-        $consumer = new InboxConsumer($this->databaseUrl, $channel, $this->topology->queue, 'it-consumer', function (array $event, array $meta) use (&$handled): void {
+        $subscription = $broker->subscribe($this->topology->queue, $this->topology);
+        (new InboxConsumer($this->databaseUrl, $subscription, 'it-consumer', function (array $event, array $meta) use (&$handled): void {
             if (!empty($event['poison'])) {
                 throw new \RuntimeException('cannot process');
             }
             $handled[] = $meta['messageId'];
-        }, $this->schema);
-        foreach ([['m-1', '{"ok": true}'], ['m-1', '{"ok": true}'], ['m-poison', '{"poison": true}']] as [$id, $body]) {
-            $channel->basic_publish(new AMQPMessage($body, ['message_id' => $id, 'application_headers' => new AMQPTable(['tenant_id' => 't1'])]), $this->topology->exchange, 'Test');
-        }
-        $consumer->drain(1.0);
+        }, $this->schema))->drain(1.0);
+        $subscription->close();
         self::assertSame(['m-1'], $handled);
         self::assertSame(1, $this->countRows('ghk_inbox', 'consumer = ?', ['it-consumer']));
-        self::waitFor(fn () => Messaging::messageCount($channel, $this->topology->dlq) === 1);
-        self::assertSame(['m-poison'], array_map(fn (AMQPMessage $m) => $m->get('message_id'), self::drainQueue($channel, $this->topology->dlq)));
-        $connection->close();
+        self::assertSame(['m-poison'], array_map(fn (BrokerMessage $m) => $m->messageId, $this->receive($this->topology->dlq, 1)));
     }
 
     public function testIT7TraceContextPropagation(): void
@@ -220,16 +232,17 @@ final class RuntimeIntegrationTest extends TestCase
         $service->handle('t1', 'agg-1', self::COMMAND, [], null, '00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01');
         $row = Database::rows(Database::connect($this->databaseUrl), "SELECT traceparent FROM {$this->schema}.ghk_outbox")[0];
         self::assertStringContainsString('4bf92f3577b34da6a3ce929d0e0e4736', (string) $row['traceparent']);
-        $connection = Messaging::connect($this->amqpUrl);
-        $channel = $connection->channel();
-        $this->topology->declare($channel);
-        self::assertSame(1, (new OutboxRelay($this->databaseUrl, $channel, $this->topology->exchange, $this->schema))->publishBatch('relay', 10));
+        $broker = $this->broker();
+        $publisher = $broker->publisher($this->topology->exchange);
+        self::assertSame(1, (new OutboxRelay($this->databaseUrl, $publisher, $this->schema))->publishBatch('relay', 10));
+        $publisher->close();
         $received = 0;
-        (new InboxConsumer($this->databaseUrl, $connection->channel(), $this->topology->queue, 'trace-consumer', function () use (&$received): void {
+        $subscription = $broker->subscribe($this->topology->queue, $this->topology);
+        (new InboxConsumer($this->databaseUrl, $subscription, 'trace-consumer', function () use (&$received): void {
             $received++;
         }, $this->schema))->drain(1.0);
+        $subscription->close();
         self::assertSame(1, $received);
-        $connection->close();
 
         $byKind = [];
         foreach (self::$exporter->getSpans() as $span) {
