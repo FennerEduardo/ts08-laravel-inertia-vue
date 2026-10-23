@@ -10,7 +10,8 @@ namespace App\Runtime;
  */
 final class Messaging
 {
-    public const DEFAULT_PREFIX = 'checkout-autenticado-con-laravel-sanctum-e-inertia-vue';
+    /** The service's shared topology (same names as every other runtime and the generated IaC). */
+    public const DEFAULT_PREFIX = 'laravel-inertia-vue-auth';
 
     public function __construct(public readonly string $exchange, public readonly string $queue, public readonly string $dlx, public readonly string $dlq)
     {
