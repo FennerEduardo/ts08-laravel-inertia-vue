@@ -1,0 +1,559 @@
+{
+  "version": "2",
+  "cliVersion": "3.2.1",
+  "features": {
+    "features/laravel_inertia_checkout.feature": {
+      "checksum": "574e361bceb4946513d5f8fa60d683dcb55e1acfaa30cf85c7e7984dfcf8f211",
+      "contracts": {
+        "contracts/laravel-inertia-checkout/ADR-CheckoutAutenticadoConLaravelSanctumEInertiaVue.md": "63d047ef2b8a8c399225ca0e7427cd4cead932ed71f42c099791c512eca71db7",
+        "contracts/laravel-inertia-checkout/openapi.json": "71092021bee2a729b66c23dde4102e2ff2a39f824a5d1f3e924b4cfc0f865325",
+        "openapi.json": "93f3bb5c224ac05d5f3fb406b245f9f705239a24c934c8896b2040b4d6a1633f",
+        "contracts/laravel-inertia-checkout/asyncapi.json": "f2d60001c6aeecd77c90bef60b49ad19c638f5dc6da6791846fca90a714a5d28",
+        "asyncapi.json": "b2e933686314dd6fa2572a92337e8856c363d08c2f9642bc24b67bf578fc4205",
+        "contracts/checkoutautenticadoconlaravelsanctumeinertiavue.contract.php": "85b1b6e0445e734aeebf302c40e3ea308487078ffcf1e2b7b178d955cb78d798"
+      }
+    }
+  },
+  "artifacts": [
+    {
+      "filePath": ".dockerignore",
+      "type": "test",
+      "checksum": "e266d5483d9156b4c1b318c6aa43e280411f07b77c6535f7bb2b3a0f1c71539b",
+      "feature": "features/laravel_inertia_checkout.feature",
+      "generatedAt": "2026-10-25T05:24:00.182Z"
+    },
+    {
+      "filePath": ".env.example",
+      "type": "config",
+      "checksum": "76b34e5ac001e50761832d73a3b79bc4cd5bb198b7836c38b70751d89bef2356",
+      "feature": "features/laravel_inertia_checkout.feature",
+      "generatedAt": "2026-10-25T05:24:00.182Z"
+    },
+    {
+      "filePath": "ADR-001-architecture-decisions.md",
+      "type": "other",
+      "checksum": "63d047ef2b8a8c399225ca0e7427cd4cead932ed71f42c099791c512eca71db7",
+      "feature": "features/laravel_inertia_checkout.feature",
+      "generatedAt": "2026-10-25T05:24:00.182Z"
+    },
+    {
+      "filePath": "app/Application/CommandPort.php",
+      "type": "test",
+      "checksum": "8bd672ba75ac383f5b6eb8a371a80f478fa94e43b66438d436dee2137c3fbede",
+      "feature": "features/laravel_inertia_checkout.feature",
+      "generatedAt": "2026-10-25T05:24:00.182Z"
+    },
+    {
+      "filePath": "app/Application/RuntimeCommandPort.php",
+      "type": "test",
+      "checksum": "783f4751f3bc55b9c40fa4ad8bde94e3a5281b95b7818fb54e5c7d8720950621",
+      "feature": "features/laravel_inertia_checkout.feature",
+      "generatedAt": "2026-10-25T05:24:00.182Z"
+    },
+    {
+      "filePath": "app/Auth/JwtTenant.php",
+      "type": "test",
+      "checksum": "0ec525fbe8cf98a46e2e57ccfa5559838af895d5f56b8382ba9ab41fc33e0227",
+      "feature": "features/laravel_inertia_checkout.feature",
+      "generatedAt": "2026-10-25T05:24:00.182Z"
+    },
+    {
+      "filePath": "app/Console/Commands/OutboxRelayCommand.php",
+      "type": "test",
+      "checksum": "cbd330e7459a9c53623b46b80fbaf154c7d5287b3b6c592c6de262e6618f7508",
+      "feature": "features/laravel_inertia_checkout.feature",
+      "generatedAt": "2026-10-25T05:24:00.182Z"
+    },
+    {
+      "filePath": "app/Domain/CheckoutAutenticadoConLaravelSanctumEInertiaVue/CheckoutAutenticadoConLaravelSanctumEInertiaVueAggregate.php",
+      "type": "test",
+      "checksum": "1ea288ed848bb7f57fe4f95fdebb02a645ae570499ed9fbbb40309f70a25760f",
+      "feature": "features/laravel_inertia_checkout.feature",
+      "generatedAt": "2026-10-25T05:24:00.182Z"
+    },
+    {
+      "filePath": "app/Domain/CheckoutAutenticadoConLaravelSanctumEInertiaVue/CheckoutAutenticadoConLaravelSanctumEInertiaVueCommand.php",
+      "type": "test",
+      "checksum": "c2bba0cdf3ca5b1d7b79902692e99ab06f80442a84cf8e89ed49d0083cf94542",
+      "feature": "features/laravel_inertia_checkout.feature",
+      "generatedAt": "2026-10-25T05:24:00.182Z"
+    },
+    {
+      "filePath": "app/Domain/CheckoutAutenticadoConLaravelSanctumEInertiaVue/CheckoutAutenticadoConLaravelSanctumEInertiaVueDomainEvent.php",
+      "type": "test",
+      "checksum": "87f65cda649cc5e44a7519fdda2096ba05abbebace1e6beaff690a23e0105237",
+      "feature": "features/laravel_inertia_checkout.feature",
+      "generatedAt": "2026-10-25T05:24:00.182Z"
+    },
+    {
+      "filePath": "app/Domain/CheckoutAutenticadoConLaravelSanctumEInertiaVue/CheckoutAutenticadoConLaravelSanctumEInertiaVueEventType.php",
+      "type": "test",
+      "checksum": "8c187197c9f32f45def65fc3b193bb87ab68ceaf468afb524d36d9e20a85da06",
+      "feature": "features/laravel_inertia_checkout.feature",
+      "generatedAt": "2026-10-25T05:24:00.182Z"
+    },
+    {
+      "filePath": "app/Domain/CheckoutAutenticadoConLaravelSanctumEInertiaVue/CheckoutAutenticadoConLaravelSanctumEInertiaVueState.php",
+      "type": "test",
+      "checksum": "9d0ff8034b1d9e0e52a3e16cbcaaf60ccf4a6b119306bc3f15319503fa453dfe",
+      "feature": "features/laravel_inertia_checkout.feature",
+      "generatedAt": "2026-10-25T05:24:00.182Z"
+    },
+    {
+      "filePath": "app/Domain/CheckoutAutenticadoConLaravelSanctumEInertiaVue/DomainValidationException.php",
+      "type": "test",
+      "checksum": "a57d8f5f895d21cda142f742742b2ca875c778f3a3c1dbaba2e616cf1bf99ce8",
+      "feature": "features/laravel_inertia_checkout.feature",
+      "generatedAt": "2026-10-25T05:24:00.182Z"
+    },
+    {
+      "filePath": "app/Http/Controllers/CheckoutAutenticadoConLaravelSanctumEInertiaVueController.php",
+      "type": "test",
+      "checksum": "7ac883bb6ae4c19abe582934dccbfdade126bd6adc88ba7387af7ec476cc3295",
+      "feature": "features/laravel_inertia_checkout.feature",
+      "generatedAt": "2026-10-25T05:24:00.182Z"
+    },
+    {
+      "filePath": "app/Providers/RuntimeServiceProvider.php",
+      "type": "test",
+      "checksum": "023cd991068078aa5da54ac8b4a9cadc878105e354e95a65d4880bd3ba97f696",
+      "feature": "features/laravel_inertia_checkout.feature",
+      "generatedAt": "2026-10-25T05:24:00.182Z"
+    },
+    {
+      "filePath": "app/Runtime/Broker.php",
+      "type": "test",
+      "checksum": "6840548dbb32aba32033f3a1a7ba59a227adb1ba37ff1793a5d57a29891f6364",
+      "feature": "features/laravel_inertia_checkout.feature",
+      "generatedAt": "2026-10-25T05:24:00.182Z"
+    },
+    {
+      "filePath": "app/Runtime/BrokerMessage.php",
+      "type": "test",
+      "checksum": "5a94619ef1a88b86bea7d524b5cb5ddb1638104f8faee921ac40bd4106109d50",
+      "feature": "features/laravel_inertia_checkout.feature",
+      "generatedAt": "2026-10-25T05:24:00.182Z"
+    },
+    {
+      "filePath": "app/Runtime/Brokers.php",
+      "type": "test",
+      "checksum": "ea5915e724b70355977846917e4deba18f338bb6cda65fd89790a0c58bb17fa9",
+      "feature": "features/laravel_inertia_checkout.feature",
+      "generatedAt": "2026-10-25T05:24:00.182Z"
+    },
+    {
+      "filePath": "app/Runtime/CommandService.php",
+      "type": "test",
+      "checksum": "5e0638b80e0623ea6556c94a66a048d5486f03c7e33b45660a7af502d3bfa52e",
+      "feature": "features/laravel_inertia_checkout.feature",
+      "generatedAt": "2026-10-25T05:24:00.182Z"
+    },
+    {
+      "filePath": "app/Runtime/Database.php",
+      "type": "test",
+      "checksum": "7729d374950a23cd4b1af497898fd168532d96fad71b983c2bbcf15087c8486c",
+      "feature": "features/laravel_inertia_checkout.feature",
+      "generatedAt": "2026-10-25T05:24:00.182Z"
+    },
+    {
+      "filePath": "app/Runtime/Delivery.php",
+      "type": "test",
+      "checksum": "b7cc7e44310c7bcf502126c5cbd77e2c3ff21647920b17bcd086f23a66d00dfc",
+      "feature": "features/laravel_inertia_checkout.feature",
+      "generatedAt": "2026-10-25T05:24:00.182Z"
+    },
+    {
+      "filePath": "app/Runtime/EventPublisher.php",
+      "type": "test",
+      "checksum": "64d69adee820c03b326984915bc6e80d957f90214c5604dbc39d31c49e6571f4",
+      "feature": "features/laravel_inertia_checkout.feature",
+      "generatedAt": "2026-10-25T05:24:00.182Z"
+    },
+    {
+      "filePath": "app/Runtime/EventSubscription.php",
+      "type": "test",
+      "checksum": "39e4ab94e58648132a23cbe8a5915422658b141b8b0fbbf3da9a13aa55e5bc68",
+      "feature": "features/laravel_inertia_checkout.feature",
+      "generatedAt": "2026-10-25T05:24:00.182Z"
+    },
+    {
+      "filePath": "app/Runtime/InboxConsumer.php",
+      "type": "test",
+      "checksum": "298c3ceffc294d708046345d3bba97fa5bbc5ca160e30176eb6f03d75605e9cf",
+      "feature": "features/laravel_inertia_checkout.feature",
+      "generatedAt": "2026-10-25T05:24:00.182Z"
+    },
+    {
+      "filePath": "app/Runtime/Messaging.php",
+      "type": "test",
+      "checksum": "fe7f64c0e2765e2668123f006bd071332b17a3d0209e4b5c9e414fba6a7eb0b2",
+      "feature": "features/laravel_inertia_checkout.feature",
+      "generatedAt": "2026-10-25T05:24:00.182Z"
+    },
+    {
+      "filePath": "app/Runtime/OutboxRelay.php",
+      "type": "test",
+      "checksum": "3abb5d660a86c7a61595e196f7e1d9966a17bd0acb8e612e205f00931520f6eb",
+      "feature": "features/laravel_inertia_checkout.feature",
+      "generatedAt": "2026-10-25T05:24:00.182Z"
+    },
+    {
+      "filePath": "app/Runtime/PubSubBroker.php",
+      "type": "test",
+      "checksum": "614b67720cc27ee502d569c17f79271dd1c8be64fc1b830004ab1ac554f10c65",
+      "feature": "features/laravel_inertia_checkout.feature",
+      "generatedAt": "2026-10-25T05:24:00.182Z"
+    },
+    {
+      "filePath": "app/Runtime/RabbitMqBroker.php",
+      "type": "test",
+      "checksum": "fac35ef7b9b8f9ce0cf09dc0868051dd356847c25debc6099edff6136ba17013",
+      "feature": "features/laravel_inertia_checkout.feature",
+      "generatedAt": "2026-10-25T05:24:00.182Z"
+    },
+    {
+      "filePath": "app/Runtime/SagaOrchestrator.php",
+      "type": "test",
+      "checksum": "16d8bcd2d4ae25319113f003030092dd980f639285fdccc2387d2894739f842e",
+      "feature": "features/laravel_inertia_checkout.feature",
+      "generatedAt": "2026-10-25T05:24:00.182Z"
+    },
+    {
+      "filePath": "app/Runtime/Schema.php",
+      "type": "test",
+      "checksum": "069589c5d3e5171fa659056236639efbba598be44bb45b4a670b3c36f1ea04e2",
+      "feature": "features/laravel_inertia_checkout.feature",
+      "generatedAt": "2026-10-25T05:24:00.182Z"
+    },
+    {
+      "filePath": "app/Runtime/Telemetry.php",
+      "type": "test",
+      "checksum": "837cdc0dbe44dae979e0c9deb2707f21ba7c08773ef7c33cc338df4c4d8cf64e",
+      "feature": "features/laravel_inertia_checkout.feature",
+      "generatedAt": "2026-10-25T05:24:00.182Z"
+    },
+    {
+      "filePath": "artisan",
+      "type": "test",
+      "checksum": "6a9ec5905822df097385645d9dc4939adaa7de2182e62a4d82b48534ad931421",
+      "feature": "features/laravel_inertia_checkout.feature",
+      "generatedAt": "2026-10-25T05:24:00.182Z"
+    },
+    {
+      "filePath": "asyncapi.json",
+      "type": "contract",
+      "checksum": "b2e933686314dd6fa2572a92337e8856c363d08c2f9642bc24b67bf578fc4205",
+      "feature": "features/laravel_inertia_checkout.feature",
+      "generatedAt": "2026-10-25T05:24:00.182Z"
+    },
+    {
+      "filePath": "behat.yml",
+      "type": "test",
+      "checksum": "87a7faec9fb341c0f7fcfc2dcf7e568054cec94b78d9005ed47f41151a2d73a9",
+      "feature": "features/laravel_inertia_checkout.feature",
+      "generatedAt": "2026-10-25T05:24:00.182Z"
+    },
+    {
+      "filePath": "bootstrap/app.php",
+      "type": "test",
+      "checksum": "8861b16c0cc444c377d4db46570e419384d8383f044233d9af4158fd6bcbcc59",
+      "feature": "features/laravel_inertia_checkout.feature",
+      "generatedAt": "2026-10-25T05:24:00.182Z"
+    },
+    {
+      "filePath": "bootstrap/cache/.gitignore",
+      "type": "test",
+      "checksum": "240a3e0d37d2e86b614063f5347eb02d4f99ca6c254de6b82871ff8d95532a7d",
+      "feature": "features/laravel_inertia_checkout.feature",
+      "generatedAt": "2026-10-25T05:24:00.182Z"
+    },
+    {
+      "filePath": "composer.json",
+      "type": "test",
+      "checksum": "9640529a025ea27749a132bd2d5e8f826757e1420bf6f8da7d2a70835312ce4d",
+      "feature": "features/laravel_inertia_checkout.feature",
+      "generatedAt": "2026-10-25T05:24:00.182Z"
+    },
+    {
+      "filePath": "contracts/checkoutautenticadoconlaravelsanctumeinertiavue.contract.php",
+      "type": "contract",
+      "checksum": "85b1b6e0445e734aeebf302c40e3ea308487078ffcf1e2b7b178d955cb78d798",
+      "feature": "features/laravel_inertia_checkout.feature",
+      "generatedAt": "2026-10-25T05:24:00.182Z"
+    },
+    {
+      "filePath": "contracts/laravel-inertia-checkout/ADR-CheckoutAutenticadoConLaravelSanctumEInertiaVue.md",
+      "type": "other",
+      "checksum": "63d047ef2b8a8c399225ca0e7427cd4cead932ed71f42c099791c512eca71db7",
+      "feature": "features/laravel_inertia_checkout.feature",
+      "generatedAt": "2026-10-25T05:24:00.182Z"
+    },
+    {
+      "filePath": "contracts/laravel-inertia-checkout/asyncapi.json",
+      "type": "contract",
+      "checksum": "f2d60001c6aeecd77c90bef60b49ad19c638f5dc6da6791846fca90a714a5d28",
+      "feature": "features/laravel_inertia_checkout.feature",
+      "generatedAt": "2026-10-25T05:24:00.182Z"
+    },
+    {
+      "filePath": "contracts/laravel-inertia-checkout/openapi.json",
+      "type": "openapi",
+      "checksum": "71092021bee2a729b66c23dde4102e2ff2a39f824a5d1f3e924b4cfc0f865325",
+      "feature": "features/laravel_inertia_checkout.feature",
+      "generatedAt": "2026-10-25T05:24:00.182Z"
+    },
+    {
+      "filePath": "docker-compose.yml",
+      "type": "config",
+      "checksum": "d66603fa4d5bc0e30dc0e76c7568836b0bb0d75e8328a206105ba286a7989e88",
+      "feature": "features/laravel_inertia_checkout.feature",
+      "generatedAt": "2026-10-25T05:24:00.182Z"
+    },
+    {
+      "filePath": "Dockerfile",
+      "type": "test",
+      "checksum": "128f20bf1fcb77326e49ff11f695b329c95db7604a728ef253cdc221b7cc63ed",
+      "feature": "features/laravel_inertia_checkout.feature",
+      "generatedAt": "2026-10-25T05:24:00.182Z"
+    },
+    {
+      "filePath": "features/bootstrap/CheckoutAutenticadoConLaravelSanctumEInertiaVueContext.php",
+      "type": "test",
+      "checksum": "9fb471cf488f78affacc78ac795fa9e8b6a74905521dbfd70eff8359059c3012",
+      "feature": "features/laravel_inertia_checkout.feature",
+      "generatedAt": "2026-10-25T05:24:00.182Z"
+    },
+    {
+      "filePath": "features/laravel_inertia_checkout.feature",
+      "type": "other",
+      "checksum": "574e361bceb4946513d5f8fa60d683dcb55e1acfaa30cf85c7e7984dfcf8f211",
+      "feature": "features/laravel_inertia_checkout.feature",
+      "generatedAt": "2026-10-25T05:24:00.182Z"
+    },
+    {
+      "filePath": "fixtures.ts",
+      "type": "fixture",
+      "checksum": "ddef077328a4d7fac4ec9c59bd3475177cae967c74aea4d13805ed24e5b3be1b",
+      "feature": "features/laravel_inertia_checkout.feature",
+      "generatedAt": "2026-10-25T05:24:00.182Z"
+    },
+    {
+      "filePath": "frontend/index.html",
+      "type": "test",
+      "checksum": "65cdd28b2591ed5392e1c5f71b1537f02a0b76889b0d06c09f392132c3f49ec8",
+      "feature": "features/laravel_inertia_checkout.feature",
+      "generatedAt": "2026-10-25T05:24:00.182Z"
+    },
+    {
+      "filePath": "frontend/package.json",
+      "type": "test",
+      "checksum": "a1405d127eb8d67abf987a1330d630ac861929e9d7d36a440f531026786d6335",
+      "feature": "features/laravel_inertia_checkout.feature",
+      "generatedAt": "2026-10-25T05:24:00.182Z"
+    },
+    {
+      "filePath": "frontend/src/api/checkout-autenticado-con-laravel-sanctum-e-inertia-vue-client.test.ts",
+      "type": "test",
+      "checksum": "332960cf1db329ae853bebf9e6b4c4afe78bbe59547412eaf4caa345e3c1fc61",
+      "feature": "features/laravel_inertia_checkout.feature",
+      "generatedAt": "2026-10-25T05:24:00.182Z"
+    },
+    {
+      "filePath": "frontend/src/api/checkout-autenticado-con-laravel-sanctum-e-inertia-vue-client.ts",
+      "type": "test",
+      "checksum": "b04fbee475c1a117936a9daca3b998ff9a7f20a909fc5ab4407d03956053770f",
+      "feature": "features/laravel_inertia_checkout.feature",
+      "generatedAt": "2026-10-25T05:24:00.182Z"
+    },
+    {
+      "filePath": "frontend/src/components/CheckoutAutenticadoConLaravelSanctumEInertiaVuePanel.test.ts",
+      "type": "test",
+      "checksum": "c28a4d960aef9e9b7f6ce6de11bd5183499591afebd15ae5672e860bcbb52431",
+      "feature": "features/laravel_inertia_checkout.feature",
+      "generatedAt": "2026-10-25T05:24:00.182Z"
+    },
+    {
+      "filePath": "frontend/src/components/CheckoutAutenticadoConLaravelSanctumEInertiaVuePanel.vue",
+      "type": "test",
+      "checksum": "6d6a5044b71a7efc414ae9206f9f914da7f6f79235e612f6e6dff135f867ac34",
+      "feature": "features/laravel_inertia_checkout.feature",
+      "generatedAt": "2026-10-25T05:24:00.182Z"
+    },
+    {
+      "filePath": "frontend/src/env.d.ts",
+      "type": "test",
+      "checksum": "495bc6291784edae53cb91ba0783ede95408cbe6f2060e87ebd39f79627d7c03",
+      "feature": "features/laravel_inertia_checkout.feature",
+      "generatedAt": "2026-10-25T05:24:00.182Z"
+    },
+    {
+      "filePath": "frontend/src/main.ts",
+      "type": "test",
+      "checksum": "413d7ac10075c2d7a9528b88c772108a6cb462c9eb852c67937c7c9b793cc368",
+      "feature": "features/laravel_inertia_checkout.feature",
+      "generatedAt": "2026-10-25T05:24:00.182Z"
+    },
+    {
+      "filePath": "frontend/src/stores/checkout-autenticado-con-laravel-sanctum-e-inertia-vue.store.test.ts",
+      "type": "test",
+      "checksum": "c08841153ad9ab4e555ff9785a3fcefdb444c0b7a826eaa1ef82104297061bb2",
+      "feature": "features/laravel_inertia_checkout.feature",
+      "generatedAt": "2026-10-25T05:24:00.182Z"
+    },
+    {
+      "filePath": "frontend/src/stores/checkout-autenticado-con-laravel-sanctum-e-inertia-vue.store.ts",
+      "type": "test",
+      "checksum": "5fa3fa9c605bddb1c2c985b17616b0a8183f060d7aa9c73601a53a31f4c03066",
+      "feature": "features/laravel_inertia_checkout.feature",
+      "generatedAt": "2026-10-25T05:24:00.182Z"
+    },
+    {
+      "filePath": "frontend/tsconfig.json",
+      "type": "test",
+      "checksum": "db9fe19dc1e886024565a4932e58a2b9920b6e6a4fb40196d81bbecb3bbfd104",
+      "feature": "features/laravel_inertia_checkout.feature",
+      "generatedAt": "2026-10-25T05:24:00.182Z"
+    },
+    {
+      "filePath": "frontend/vite.config.ts",
+      "type": "test",
+      "checksum": "aedec4031f42c268137d160947bd8120b715b9a25f25302d57b41b0567a220f2",
+      "feature": "features/laravel_inertia_checkout.feature",
+      "generatedAt": "2026-10-25T05:24:00.182Z"
+    },
+    {
+      "filePath": "openapi.json",
+      "type": "openapi",
+      "checksum": "93f3bb5c224ac05d5f3fb406b245f9f705239a24c934c8896b2040b4d6a1633f",
+      "feature": "features/laravel_inertia_checkout.feature",
+      "generatedAt": "2026-10-25T05:24:00.182Z"
+    },
+    {
+      "filePath": "phpunit.xml",
+      "type": "test",
+      "checksum": "e5ef104a73b4bae367b780ce206c8471d419d76cd572d7ab549c29664814eec8",
+      "feature": "features/laravel_inertia_checkout.feature",
+      "generatedAt": "2026-10-25T05:24:00.182Z"
+    },
+    {
+      "filePath": "prompts/backend-agent.md",
+      "type": "prompt",
+      "checksum": "d8364a486c044cd3ee73c7205618b720bb7ac787b4ccdca988ca5c90a7dfaec2",
+      "feature": "features/laravel_inertia_checkout.feature",
+      "generatedAt": "2026-10-25T05:24:00.182Z"
+    },
+    {
+      "filePath": "prompts/domain-agent.md",
+      "type": "prompt",
+      "checksum": "454c0f81a74b4def15d98248b80853597644054e3777495321f2ec9315b4212a",
+      "feature": "features/laravel_inertia_checkout.feature",
+      "generatedAt": "2026-10-25T05:24:00.182Z"
+    },
+    {
+      "filePath": "prompts/qa-agent.md",
+      "type": "prompt",
+      "checksum": "783a6b919d8c8e2a477af9f4c772881b654777b7539f413212a20f0c898a9d24",
+      "feature": "features/laravel_inertia_checkout.feature",
+      "generatedAt": "2026-10-25T05:24:00.182Z"
+    },
+    {
+      "filePath": "public/index.php",
+      "type": "test",
+      "checksum": "09fcafde31dc69a4674c57ebc0eedcd2255f57931821e3c3df9f2420dd919e46",
+      "feature": "features/laravel_inertia_checkout.feature",
+      "generatedAt": "2026-10-25T05:24:00.182Z"
+    },
+    {
+      "filePath": "routes/api.php",
+      "type": "test",
+      "checksum": "33a6cbe081544cd9169143a78f4fdaf170b232edb242702a4cf85e6bef5ce91d",
+      "feature": "features/laravel_inertia_checkout.feature",
+      "generatedAt": "2026-10-25T05:24:00.182Z"
+    },
+    {
+      "filePath": "seed.sql",
+      "type": "fixture",
+      "checksum": "1e8cec50762c894de1655bb55b1ebf9d2eddb7943fd1599d5410400b8c9a2c3a",
+      "feature": "features/laravel_inertia_checkout.feature",
+      "generatedAt": "2026-10-25T05:24:00.182Z"
+    },
+    {
+      "filePath": "storage/app/.gitignore",
+      "type": "test",
+      "checksum": "240a3e0d37d2e86b614063f5347eb02d4f99ca6c254de6b82871ff8d95532a7d",
+      "feature": "features/laravel_inertia_checkout.feature",
+      "generatedAt": "2026-10-25T05:24:00.182Z"
+    },
+    {
+      "filePath": "storage/framework/cache/.gitignore",
+      "type": "test",
+      "checksum": "240a3e0d37d2e86b614063f5347eb02d4f99ca6c254de6b82871ff8d95532a7d",
+      "feature": "features/laravel_inertia_checkout.feature",
+      "generatedAt": "2026-10-25T05:24:00.182Z"
+    },
+    {
+      "filePath": "storage/framework/sessions/.gitignore",
+      "type": "test",
+      "checksum": "240a3e0d37d2e86b614063f5347eb02d4f99ca6c254de6b82871ff8d95532a7d",
+      "feature": "features/laravel_inertia_checkout.feature",
+      "generatedAt": "2026-10-25T05:24:00.182Z"
+    },
+    {
+      "filePath": "storage/framework/views/.gitignore",
+      "type": "test",
+      "checksum": "240a3e0d37d2e86b614063f5347eb02d4f99ca6c254de6b82871ff8d95532a7d",
+      "feature": "features/laravel_inertia_checkout.feature",
+      "generatedAt": "2026-10-25T05:24:00.182Z"
+    },
+    {
+      "filePath": "storage/logs/.gitignore",
+      "type": "test",
+      "checksum": "240a3e0d37d2e86b614063f5347eb02d4f99ca6c254de6b82871ff8d95532a7d",
+      "feature": "features/laravel_inertia_checkout.feature",
+      "generatedAt": "2026-10-25T05:24:00.182Z"
+    },
+    {
+      "filePath": "tests/Feature/CheckoutAutenticadoConLaravelSanctumEInertiaVueApiTest.php",
+      "type": "test",
+      "checksum": "65e2f00ea0286e9b7b9d1df834a99bee3c4834306075bdfe96d553e58d418fea",
+      "feature": "features/laravel_inertia_checkout.feature",
+      "generatedAt": "2026-10-25T05:24:00.182Z"
+    },
+    {
+      "filePath": "tests/Integration/CheckoutAutenticadoConLaravelSanctumEInertiaVueHttpTest.php",
+      "type": "test",
+      "checksum": "249b5130aad5524ab8f1b10fa5600ac7fd820ce5ed714d05ae6810ba317ac170",
+      "feature": "features/laravel_inertia_checkout.feature",
+      "generatedAt": "2026-10-25T05:24:00.182Z"
+    },
+    {
+      "filePath": "tests/Integration/RuntimeIntegrationTest.php",
+      "type": "test",
+      "checksum": "8ccc82d3c693321d5d17d016dbda842e83a62c8d1b3be3c444d399882417219e",
+      "feature": "features/laravel_inertia_checkout.feature",
+      "generatedAt": "2026-10-25T05:24:00.182Z"
+    },
+    {
+      "filePath": "tests/Integration/worker.php",
+      "type": "test",
+      "checksum": "e9e3e4f07702602b91ef5b3580927a488fca42e2e081d248eed980beef3ae6e7",
+      "feature": "features/laravel_inertia_checkout.feature",
+      "generatedAt": "2026-10-25T05:24:00.182Z"
+    },
+    {
+      "filePath": "tests/TestCase.php",
+      "type": "test",
+      "checksum": "e61d487bdf0dde87c3f34c514373b2b13650418c10e67cdcaceb59ca62274dca",
+      "feature": "features/laravel_inertia_checkout.feature",
+      "generatedAt": "2026-10-25T05:24:00.182Z"
+    },
+    {
+      "filePath": "tests/Unit/CheckoutAutenticadoConLaravelSanctumEInertiaVueAggregateTest.php",
+      "type": "test",
+      "checksum": "8f9ef4d7ac3f390caad2d931eeeec28d31056b2869c64873bc52147cde6e8c12",
+      "feature": "features/laravel_inertia_checkout.feature",
+      "generatedAt": "2026-10-25T05:24:00.182Z"
+    }
+  ],
+  "executions": []
+}

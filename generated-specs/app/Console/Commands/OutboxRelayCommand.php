@@ -7,6 +7,7 @@ namespace App\Console\Commands;
 use App\Runtime\Brokers;
 use App\Runtime\Messaging;
 use App\Runtime\OutboxRelay;
+use App\Runtime\Schema;
 use Illuminate\Console\Command;
 
 /**
@@ -20,6 +21,10 @@ final class OutboxRelayCommand extends Command
 
     public function handle(): int
     {
+        // The relay may start before the web process: it creates the kernel's tables too.
+        if (env('GHK_MIGRATE', true) !== false && env('GHK_MIGRATE') !== 'false') {
+            Schema::migrate((string) env('DATABASE_URL'));
+        }
         $broker = Brokers::connect();
         $topology = Messaging::forPrefix();
         // GHK_DECLARE_TOPOLOGY=false when infrastructure as code owns the topology (least-privilege credentials).

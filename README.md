@@ -108,7 +108,7 @@ The full list of variables and the per-cloud services are in the [deployment gui
 ## Regenerate
 
 ```bash
-npm install -g gherkin-ai@3.2.0
+npm install -g gherkin-ai@3.2.1
 ghk lint -f features/laravel_inertia_checkout.feature
 ghk generate -f features/laravel_inertia_checkout.feature
 ghk converge -f features/laravel_inertia_checkout.feature     # specification-to-code convergence
