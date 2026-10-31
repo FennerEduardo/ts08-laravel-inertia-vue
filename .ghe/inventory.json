@@ -1,6 +1,6 @@
 {
   "version": "2",
-  "cliVersion": "3.2.1",
+  "cliVersion": "3.2.2",
   "features": {
     "features/laravel_inertia_checkout.feature": {
       "checksum": "574e361bceb4946513d5f8fa60d683dcb55e1acfaa30cf85c7e7984dfcf8f211",
@@ -10,7 +10,7 @@
         "openapi.json": "93f3bb5c224ac05d5f3fb406b245f9f705239a24c934c8896b2040b4d6a1633f",
         "contracts/laravel-inertia-checkout/asyncapi.json": "f2d60001c6aeecd77c90bef60b49ad19c638f5dc6da6791846fca90a714a5d28",
         "asyncapi.json": "b2e933686314dd6fa2572a92337e8856c363d08c2f9642bc24b67bf578fc4205",
-        "contracts/checkoutautenticadoconlaravelsanctumeinertiavue.contract.php": "85b1b6e0445e734aeebf302c40e3ea308487078ffcf1e2b7b178d955cb78d798"
+        "contracts/checkoutautenticadoconlaravelsanctumeinertiavue.contract.php": "9e7d9a72e78f9ec7d803a3f74d69affedde35568c99f658efd1e511201b7f3da"
       }
     }
   },
@@ -277,9 +277,9 @@
     {
       "filePath": "contracts/checkoutautenticadoconlaravelsanctumeinertiavue.contract.php",
       "type": "contract",
-      "checksum": "85b1b6e0445e734aeebf302c40e3ea308487078ffcf1e2b7b178d955cb78d798",
+      "checksum": "9e7d9a72e78f9ec7d803a3f74d69affedde35568c99f658efd1e511201b7f3da",
       "feature": "features/laravel_inertia_checkout.feature",
-      "generatedAt": "2026-10-25T05:24:00.182Z"
+      "generatedAt": "2026-10-30T20:48:20.427Z"
     },
     {
       "filePath": "contracts/laravel-inertia-checkout/ADR-CheckoutAutenticadoConLaravelSanctumEInertiaVue.md",
