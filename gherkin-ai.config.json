@@ -5,7 +5,7 @@
     "language": "php",
     "framework": "laravel",
     "orm": "pdo",
-    "database": "mysql",
+    "database": "postgresql",
     "validation": "native-php-filter",
     "auth": "jwt-bcrypt",
     "messaging": "none",
