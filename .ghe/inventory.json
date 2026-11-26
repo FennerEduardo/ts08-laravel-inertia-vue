@@ -1,6 +1,6 @@
 {
   "version": "2",
-  "cliVersion": "3.3.0",
+  "cliVersion": "3.5.0",
   "features": {
     "features/laravel_inertia_checkout.feature": {
       "checksum": "574e361bceb4946513d5f8fa60d683dcb55e1acfaa30cf85c7e7984dfcf8f211",
@@ -10,7 +10,7 @@
         "openapi.json": "93f3bb5c224ac05d5f3fb406b245f9f705239a24c934c8896b2040b4d6a1633f",
         "contracts/laravel-inertia-checkout/asyncapi.json": "f2d60001c6aeecd77c90bef60b49ad19c638f5dc6da6791846fca90a714a5d28",
         "asyncapi.json": "b2e933686314dd6fa2572a92337e8856c363d08c2f9642bc24b67bf578fc4205",
-        "contracts/checkoutautenticadoconlaravelsanctumeinertiavue.contract.php": "96b1036e71185cad8a7d0ce9a8bfe3fd0759dc1e8e9876e726e2356918900fcb"
+        "contracts/checkoutautenticadoconlaravelsanctumeinertiavue.contract.php": "77b8864c977f67dc12679f5e403c25558d75b65f87c334ddeae4025d25ce2955"
       }
     }
   },
@@ -221,9 +221,9 @@
     {
       "filePath": "app/Runtime/Schema.php",
       "type": "test",
-      "checksum": "069589c5d3e5171fa659056236639efbba598be44bb45b4a670b3c36f1ea04e2",
+      "checksum": "d2d8d45262760843f4caf2d76e926aad78658ac6754f83829e1d2b895b562eb5",
       "feature": "features/laravel_inertia_checkout.feature",
-      "generatedAt": "2026-10-25T05:24:00.182Z"
+      "generatedAt": "2026-11-26T12:42:37.393Z"
     },
     {
       "filePath": "app/Runtime/Telemetry.php",
@@ -277,9 +277,9 @@
     {
       "filePath": "contracts/checkoutautenticadoconlaravelsanctumeinertiavue.contract.php",
       "type": "contract",
-      "checksum": "96b1036e71185cad8a7d0ce9a8bfe3fd0759dc1e8e9876e726e2356918900fcb",
+      "checksum": "77b8864c977f67dc12679f5e403c25558d75b65f87c334ddeae4025d25ce2955",
       "feature": "features/laravel_inertia_checkout.feature",
-      "generatedAt": "2026-11-03T13:48:46.548Z"
+      "generatedAt": "2026-11-26T12:42:37.393Z"
     },
     {
       "filePath": "contracts/laravel-inertia-checkout/ADR-CheckoutAutenticadoConLaravelSanctumEInertiaVue.md",
@@ -352,32 +352,46 @@
       "generatedAt": "2026-10-25T05:24:00.182Z"
     },
     {
+      "filePath": "frontend/src/api/auth.ts",
+      "type": "test",
+      "checksum": "a4e7c3ed3379c028c1e83060f5f2ac72105a8ef10f632436928f5d7ce64e2151",
+      "feature": "features/laravel_inertia_checkout.feature",
+      "generatedAt": "2026-11-26T12:42:37.393Z"
+    },
+    {
       "filePath": "frontend/src/api/checkout-autenticado-con-laravel-sanctum-e-inertia-vue-client.test.ts",
       "type": "test",
-      "checksum": "332960cf1db329ae853bebf9e6b4c4afe78bbe59547412eaf4caa345e3c1fc61",
+      "checksum": "9f36f2e7c4618e35ac5872c2e6cf9182cf043efb1408c46d32a9f6a2d46bf125",
       "feature": "features/laravel_inertia_checkout.feature",
-      "generatedAt": "2026-10-25T05:24:00.182Z"
+      "generatedAt": "2026-11-26T12:42:37.393Z"
     },
     {
       "filePath": "frontend/src/api/checkout-autenticado-con-laravel-sanctum-e-inertia-vue-client.ts",
       "type": "test",
-      "checksum": "b04fbee475c1a117936a9daca3b998ff9a7f20a909fc5ab4407d03956053770f",
+      "checksum": "c4f67d91b599140d0fad36b3795fd3934ab28cc5af6bd46a338cbe7d622d69dd",
       "feature": "features/laravel_inertia_checkout.feature",
-      "generatedAt": "2026-10-25T05:24:00.182Z"
+      "generatedAt": "2026-11-26T12:42:37.393Z"
     },
     {
       "filePath": "frontend/src/components/CheckoutAutenticadoConLaravelSanctumEInertiaVuePanel.test.ts",
       "type": "test",
-      "checksum": "c28a4d960aef9e9b7f6ce6de11bd5183499591afebd15ae5672e860bcbb52431",
+      "checksum": "b8eab948f9075cdab07b8ea162bc6b150370040e46600ba87848233838bee704",
       "feature": "features/laravel_inertia_checkout.feature",
-      "generatedAt": "2026-10-25T05:24:00.182Z"
+      "generatedAt": "2026-11-26T12:42:37.393Z"
     },
     {
       "filePath": "frontend/src/components/CheckoutAutenticadoConLaravelSanctumEInertiaVuePanel.vue",
       "type": "test",
-      "checksum": "6d6a5044b71a7efc414ae9206f9f914da7f6f79235e612f6e6dff135f867ac34",
+      "checksum": "bbf2ac9521d9f274d4d4941789ce7ba876fdcfb05a2ad010e4acb4b281b5e784",
       "feature": "features/laravel_inertia_checkout.feature",
-      "generatedAt": "2026-10-25T05:24:00.182Z"
+      "generatedAt": "2026-11-26T12:42:37.393Z"
+    },
+    {
+      "filePath": "frontend/src/components/SignInPanel.vue",
+      "type": "test",
+      "checksum": "3a09942995cf4da8143ede6036a4b41a443537221f19c28e06fe3cd0b91a8e25",
+      "feature": "features/laravel_inertia_checkout.feature",
+      "generatedAt": "2026-11-26T12:42:37.393Z"
     },
     {
       "filePath": "frontend/src/env.d.ts",
@@ -389,23 +403,23 @@
     {
       "filePath": "frontend/src/main.ts",
       "type": "test",
-      "checksum": "413d7ac10075c2d7a9528b88c772108a6cb462c9eb852c67937c7c9b793cc368",
+      "checksum": "c0c9f52301a9f99958baec65f05b6417c03e1ea3555d7d59a38828ef6ae26abf",
       "feature": "features/laravel_inertia_checkout.feature",
-      "generatedAt": "2026-10-25T05:24:00.182Z"
+      "generatedAt": "2026-11-26T12:42:37.393Z"
     },
     {
       "filePath": "frontend/src/stores/checkout-autenticado-con-laravel-sanctum-e-inertia-vue.store.test.ts",
       "type": "test",
-      "checksum": "c08841153ad9ab4e555ff9785a3fcefdb444c0b7a826eaa1ef82104297061bb2",
+      "checksum": "1efae13d9b4c5bfd08a0359816c2634759a597632f5105e1cf05bc0d50089a3d",
       "feature": "features/laravel_inertia_checkout.feature",
-      "generatedAt": "2026-10-25T05:24:00.182Z"
+      "generatedAt": "2026-11-26T12:42:37.393Z"
     },
     {
       "filePath": "frontend/src/stores/checkout-autenticado-con-laravel-sanctum-e-inertia-vue.store.ts",
       "type": "test",
-      "checksum": "5fa3fa9c605bddb1c2c985b17616b0a8183f060d7aa9c73601a53a31f4c03066",
+      "checksum": "c81481daa10161a527fd3ea0d57dfd28d673ac000755c81745145ed0f0491e5d",
       "feature": "features/laravel_inertia_checkout.feature",
-      "generatedAt": "2026-10-25T05:24:00.182Z"
+      "generatedAt": "2026-11-26T12:42:37.393Z"
     },
     {
       "filePath": "frontend/tsconfig.json",

@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import { ApiError, COMMANDS, createCheckoutAutenticadoConLaravelSanctumEInertiaVueClient, newTraceparent } from './checkout-autenticado-con-laravel-sanctum-e-inertia-vue-client';
+import { ApiError, COMMANDS, COMMAND_FIELDS, FIELDS, createCheckoutAutenticadoConLaravelSanctumEInertiaVueClient, newTraceparent } from './checkout-autenticado-con-laravel-sanctum-e-inertia-vue-client';
 
 function fakeFetch(status: number, body: unknown) {
   return vi.fn(async (_url: RequestInfo | URL, _init?: RequestInit) => new Response(JSON.stringify(body), { status, headers: { 'Content-Type': 'application/json' } }));
@@ -53,5 +53,26 @@ describe('CheckoutAutenticadoConLaravelSanctumEInertiaVue API client', () => {
   it('raises ApiError with the server detail on failure', async () => {
     const client = createCheckoutAutenticadoConLaravelSanctumEInertiaVueClient({ fetch: fakeFetch(422, { detail: 'Command id is required' }) });
     await expect(client.execute('agg-1', 'process_checkout_autenticado_con_laravel_sanctum_e_inertia_vue')).rejects.toEqual(new ApiError(422, 'Command id is required'));
+  });
+
+  it('lists with filters and paging, and gets one by id', async () => {
+    const fetch = fakeFetch(200, { items: [{ id: 'agg-1', state: 'PENDING', version: 1 }], page: 2, size: 5, total: 6 });
+    const client = createCheckoutAutenticadoConLaravelSanctumEInertiaVueClient({ baseUrl: 'https://api.test', token: 'jwt-1', fetch });
+
+    const page = await client.list({ owner_id: '7' }, 2, 5);
+
+    expect(page.total).toBe(6);
+    const [url, init] = fetch.mock.calls[0];
+    expect(String(url)).toBe('https://api.test/api/v1/checkout-autenticado-con-laravel-sanctum-e-inertia-vue?owner_id=7&page=2&size=5');
+    expect((init?.headers as Record<string, string>).Authorization).toBe('Bearer jwt-1');
+
+    const one = fakeFetch(200, { id: 'agg-1', state: 'PENDING', version: 1 });
+    expect(await createCheckoutAutenticadoConLaravelSanctumEInertiaVueClient({ fetch: one }).get('agg-1')).toMatchObject({ id: 'agg-1' });
+    expect(String(one.mock.calls[0][0])).toBe('/api/v1/checkout-autenticado-con-laravel-sanctum-e-inertia-vue/agg-1');
+  });
+
+  it('describes the fields of each command', () => {
+    for (const command of COMMANDS) expect(Array.isArray(COMMAND_FIELDS[command])).toBe(true);
+    expect(Array.isArray(FIELDS)).toBe(true);
   });
 });

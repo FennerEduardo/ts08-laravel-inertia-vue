@@ -25,4 +25,14 @@ describe('checkoutAutenticadoConLaravelSanctumEInertiaVue store', () => {
 
     expect(store.error).toBe('Command id is required');
   });
+
+  it('loads the items the API reads', async () => {
+    setCheckoutAutenticadoConLaravelSanctumEInertiaVueClient({ list: vi.fn().mockResolvedValue({ items: [{ id: 'agg-1', state: 'PENDING', version: 1 }], page: 1, size: 20, total: 1 }) } as unknown as CheckoutAutenticadoConLaravelSanctumEInertiaVueClient);
+    const store = useCheckoutAutenticadoConLaravelSanctumEInertiaVueStore();
+
+    await store.load();
+
+    expect(store.items.map(i => i.id)).toEqual(['agg-1']);
+    expect(store.total).toBe(1);
+  });
 });
